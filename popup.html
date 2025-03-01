@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meet Mate</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        width: 300px;
+        padding: 15px;
+      }
+      h1 {
+        color: #4285f4;
+        font-size: 20px;
+        margin-bottom: 15px;
+      }
+      button {
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      button:hover {
+        background-color: #357ae8;
+      }
+      #events-container {
+        margin-top: 15px;
+      }
+      .event-item {
+        padding: 8px;
+        border-bottom: 1px solid #eee;
+      }
+      #loading {
+        display: none;
+        text-align: center;
+        margin: 10px 0;
+      }
+      #auth-status {
+        font-style: italic;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Meet Mate</h1>
+    <div id="auth-status">Not signed in</div>
+    <button id="auth-button">Sign in with Google</button>
+    <button id="view-calendar" disabled>View Upcoming Events</button>
+    <div id="loading">Loading events...</div>
+    <div id="events-container"></div>
+
+    <script src="backend/auth.js"></script>
+    <script src="webpage.js"></script>
+  </body>
+</html>

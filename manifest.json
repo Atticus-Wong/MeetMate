@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Meet Mate",
+  "version": "1.0",
+  "description": "Your personal meeting scheduler",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab", 
+    "identity",
+    "https://www.googleapis.com/auth/calendar",
+    "https://www.googleapis.com/auth/calendar.events",
+    "https://www.googleapis.com/auth/calendar.readonly"
+  ],
+  "oauth2": {
+    "client_id": "492090331501-92q57j2r9qiq42bq4uqklqqi04bet9jn.apps.googleusercontent.com.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.readonly",
+      "https://www.googleapis.com/auth/calendar.events"
+    ]
+  }
+}
