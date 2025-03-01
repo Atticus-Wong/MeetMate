@@ -1,0 +1,28 @@
+{
+  "name": "Smart Calendar Scheduler",
+  "version": "1.0",
+  "description": "Adds events to the next available time slot in Google Calendar",
+  "permissions": [
+    "identity",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.googleapis.com/",
+    "https://accounts.google.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+    }
+  },
+  "oauth2": {
+    "client_id": "492090331501-92q57j2r9qiq42bq4uqklqqi04bet9jn.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar"
+    ]
+  },
+  "manifest_version": 3
+}

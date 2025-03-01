@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Calendar Scheduler</title>
+  <style>
+    body {
+      width: 300px;
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+    input, button {
+      margin: 5px 0;
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    #status {
+      margin-top: 15px;
+      color: #4285f4;
+    }
+  </style>
+</head>
+<body>
+  <h2>Add Event to Next Available Slot</h2>
+  
+  <label for="eventName">Event Name:</label>
+  <input type="text" id="eventName" placeholder="Meeting with Team">
+  
+  <label for="duration">Duration (minutes):</label>
+  <input type="number" id="duration" min="15" step="15" value="30">
+  
+  <label for="startTime">Start After (optional):</label>
+  <input type="time" id="startTime">
+  
+  <label for="endTime">End Before (optional):</label>
+  <input type="time" id="endTime">
+  
+  <button id="addEvent">Schedule Event</button>
+  <div id="status"></div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
