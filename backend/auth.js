@@ -1,14 +1,17 @@
 async function authenticate() {
   console.log('Starting authentication process...');
   
-  try {
-    const token = await chrome.identity.getAuthToken({ interactive: true });
-    console.log('Authentication successful');
-    return token;
-  } catch (error) {
-    console.error('Chrome identity error:', JSON.stringify(error));
-    throw error;
-  }
+  return new Promise((resolve, reject) => {
+    chrome.identity.getAuthToken({ interactive: true }, (token) => {
+      if (chrome.runtime.lastError) {
+        console.error('Chrome identity error:', chrome.runtime.lastError.message);
+        reject(chrome.runtime.lastError);
+        return;
+      }
+      console.log('Authentication successful');
+      resolve(token);
+    });
+  });
 }
 
 async function getCalendarEvents() {
