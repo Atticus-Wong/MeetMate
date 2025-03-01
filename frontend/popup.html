@@ -1,27 +1,89 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Smart Scheduler</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>Schedule a Task</h1>
-    <form id="task-form">
-      <label for="task-name">Task Name:</label>
-      <input type="text" id="task-name" placeholder="Task Name" required><br>
-      
-      <label for="task-duration">Task Duration (minutes):</label>
-      <input type="number" id="task-duration" placeholder="Duration in minutes" required><br>
-      
-      <button type="submit" id="schedule-btn">Find Time Slot</button>
-    </form>
-    
-    <div id="available-time">
-      <h2>Next Available Time Slot</h2>
-      <p id="time-slot"></p>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Scheduler</title>
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Optional Custom CSS -->
+  <style>
+    body {
+      background-color: #f4f4f9;
+      padding-top: 30px;
+    }
+
+    .container {
+      max-width: 600px;
+    }
+
+    .card {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: white;
+    }
+
+    .form-label {
+      font-weight: 600;
+    }
+
+    #available-time {
+      margin-top: 30px;
+    }
+
+    #time-slot {
+      font-size: 18px;
+      font-weight: bold;
+      color: #00152c;
+    }
+
+    .btn-primary {
+      background-color: #5295a4;
+    }
+
+    .btn-primary:hover {
+      background-color: #001022;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <h1 class="text-center">Schedule a Task</h1>
+      <form id="task-form">
+        <!-- Task Name Input -->
+        <div class="mb-3">
+          <label for="task-name" class="form-label">Task Name:</label>
+          <input type="text" id="task-name" class="form-control" placeholder="Task Name" required>
+        </div>
+
+        <!-- Task Duration Input -->
+        <div class="mb-3">
+          <label for="task-duration" class="form-label">Task Duration (minutes):</label>
+          <input type="number" id="task-duration" class="form-control" placeholder="Duration in minutes" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" id="schedule-btn">Find Time Slot</button>
+        </div>
+      </form>
     </div>
 
-    <script src="popup.js"></script>
-  </body>
-</html>
+    <!-- Available Time Slot Section -->
+    <div id="available-time">
+      <h2 class="text-center">Next Available Time Slot</h2>
+      <p id="time-slot" class="text-center"></p>
+    </div>
+  </div>
 
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Optional custom JS -->
+  <script src="popup.js"></script>
+</body>
+</html>
