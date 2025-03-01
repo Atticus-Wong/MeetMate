@@ -54,7 +54,34 @@
     <div id="loading">Loading events...</div>
     <div id="events-container"></div>
 
+
     <script src="backend/auth.js"></script>
     <script src="frontend/webpage.js"></script>
+
+
+    <div id="schedule-container" style="margin-top: 20px; display: none;">
+  <h2 style="font-size: 16px; color: #4285f4;">Schedule New Task</h2>
+  <div style="margin-bottom: 10px;">
+    <label for="event-name">Event Name:</label>
+    <input type="text" id="event-name" style="width: 100%; padding: 6px; margin-top: 5px; box-sizing: border-box;" placeholder="Meeting with Team">
+  </div>
+  <div style="margin-bottom: 10px;">
+    <label for="event-duration">Duration (minutes):</label>
+    <input type="number" id="event-duration" style="width: 100%; padding: 6px; margin-top: 5px; box-sizing: border-box;" min="15" step="15" value="30">
+  </div>
+  <div style="margin-bottom: 10px;">
+    <label for="start-time">Start After (optional):</label>
+    <input type="time" id="start-time" style="width: 100%; padding: 6px; margin-top: 5px; box-sizing: border-box;">
+  </div>
+  <div style="margin-bottom: 10px;">
+    <label for="end-time">End Before (optional):</label>
+    <input type="time" id="end-time" style="width: 100%; padding: 6px; margin-top: 5px; box-sizing: border-box;">
+  </div>
+  <button id="schedule-button">Find Time & Schedule</button>
+  <div id="schedule-status" style="margin-top: 10px; font-style: italic;"></div>
+</div>
+
+
+
   </body>
 </html>
