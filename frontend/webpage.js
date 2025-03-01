@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let currentAuthToken = null;
     const authButton = document.getElementById('auth-button');
     const viewCalendarButton = document.getElementById('view-calendar');
     const authStatus = document.getElementById('auth-status');
@@ -8,22 +9,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if already authenticated
     chrome.identity.getAuthToken({ interactive: false }, function(token) {
         if (token) {
+            currentAuthToken = token;
             updateUI(true);
         }
     });
     
     // Handle auth button click
     authButton.addEventListener('click', async () => {
-        authStatus.textContent = 'Signing in...';
-        
-        try {
-            const token = await authenticate();
-            if (token) {
-                updateUI(true);
+        // Check if user is already signed in
+        if (authButton.textContent === 'Sign out') {
+            // Sign out logic
+            chrome.identity.removeCachedAuthToken({ token: currentAuthToken }, () => {
+                // Revoke access
+                if (currentAuthToken) {
+                    fetch(`https://accounts.google.com/o/oauth2/revoke?token=${currentAuthToken}`)
+                        .then(() => {
+                            console.log('Token revoked');
+                        })
+                        .catch(error => console.error('Error revoking token:', error))
+                        .finally(() => {
+                            currentAuthToken = null;
+                            updateUI(false);
+                        });
+                } else {
+                    updateUI(false);
+                }
+            });
+        } else {
+            // Sign in logic (existing code)
+            console.log('Sign in with google');
+            authStatus.textContent = 'Signing in...';
+            
+            try {
+                const token = await authenticate();
+                if (token) {
+                    currentAuthToken = token;
+                    updateUI(true);
+                }
+            } catch (error) {
+                console.error('Authentication failed:', error);
+                authStatus.textContent = 'Sign-in failed. Please try again.';
             }
-        } catch (error) {
-            console.error('Authentication failed:', error);
-            authStatus.textContent = 'Sign-in failed. Please try again.';
         }
     });
     
