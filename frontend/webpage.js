@@ -109,4 +109,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         eventsContainer.innerHTML = eventsList;
     }
+
+    // Add this to your DOMContentLoaded event listener
+    const toggleScheduleButton = document.getElementById('toggle-schedule');
+    const scheduleContainer = document.getElementById('schedule-container');
+
+    toggleScheduleButton.addEventListener('click', () => {
+        if (scheduleContainer.style.display === 'none') {
+            scheduleContainer.style.display = 'block';
+            toggleScheduleButton.textContent = 'Hide Scheduler';
+        } else {
+            scheduleContainer.style.display = 'none';
+            toggleScheduleButton.textContent = 'Schedule New Meeting';
+        }
+    });
 });

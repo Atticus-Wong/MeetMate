@@ -44,6 +44,56 @@
         font-style: italic;
         margin-bottom: 10px;
       }
+      /* Add styles for schedule container */
+      #schedule-container {
+        margin-top: 20px;
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #dadce0;
+      }
+
+      #schedule-container h2 {
+        font-size: 16px;
+        color: #4285f4;
+        margin-top: 0;
+        margin-bottom: 12px;
+      }
+
+      .form-group {
+        margin-bottom: 10px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+
+      input[type='text'],
+      input[type='number'],
+      input[type='time'] {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      #schedule-button {
+        width: 100%;
+      }
+
+      #schedule-status {
+        margin-top: 10px;
+        font-style: italic;
+      }
+
+      .toggle-container {
+        text-align: center;
+        margin-top: 15px;
+      }
     </style>
   </head>
   <body>
@@ -54,34 +104,39 @@
     <div id="loading">Loading events...</div>
     <div id="events-container"></div>
 
-
     <script src="backend/auth.js"></script>
     <script src="frontend/webpage.js"></script>
 
+    <div class="toggle-container">
+      <button id="toggle-schedule">Schedule New Meeting</button>
+    </div>
 
-    <div id="schedule-container" style="margin-top: 20px; display: none;">
-  <h2 style="font-size: 16px; color: #4285f4;">Schedule New Task</h2>
-  <div style="margin-bottom: 10px;">
-    <label for="event-name">Event Name:</label>
-    <input type="text" id="event-name" style="width: 100%; padding: 6px; margin-top: 5px; box-sizing: border-box;" placeholder="Meeting with Team">
-  </div>
-  <div style="margin-bottom: 10px;">
-    <label for="event-duration">Duration (minutes):</label>
-    <input type="number" id="event-duration" style="width: 100%; padding: 6px; margin-top: 5px; box-sizing: border-box;" min="15" step="15" value="30">
-  </div>
-  <div style="margin-bottom: 10px;">
-    <label for="start-time">Start After (optional):</label>
-    <input type="time" id="start-time" style="width: 100%; padding: 6px; margin-top: 5px; box-sizing: border-box;">
-  </div>
-  <div style="margin-bottom: 10px;">
-    <label for="end-time">End Before (optional):</label>
-    <input type="time" id="end-time" style="width: 100%; padding: 6px; margin-top: 5px; box-sizing: border-box;">
-  </div>
-  <button id="schedule-button">Find Time & Schedule</button>
-  <div id="schedule-status" style="margin-top: 10px; font-style: italic;"></div>
-</div>
-
-
-
+    <div id="schedule-container" style="display: none">
+      <h2>Schedule New Task</h2>
+      <div class="form-group">
+        <label for="event-name">Event Name:</label>
+        <input type="text" id="event-name" placeholder="Meeting with Team" />
+      </div>
+      <div class="form-group">
+        <label for="event-duration">Duration (minutes):</label>
+        <input
+          type="number"
+          id="event-duration"
+          min="15"
+          step="15"
+          value="30"
+        />
+      </div>
+      <div class="form-group">
+        <label for="start-time">Start After (optional):</label>
+        <input type="time" id="start-time" />
+      </div>
+      <div class="form-group">
+        <label for="end-time">End Before (optional):</label>
+        <input type="time" id="end-time" />
+      </div>
+      <button id="schedule-button">Find Time & Schedule</button>
+      <div id="schedule-status"></div>
+    </div>
   </body>
 </html>
