@@ -322,4 +322,140 @@ document.addEventListener('DOMContentLoaded', () => {
             throw error;
         }
     }
+
+    // Gemini AI Integration
+    const toggleGeminiButton = document.getElementById('toggle-gemini');
+    const geminiContainer = document.getElementById('gemini-container');
+    const geminiPromptInput = document.getElementById('gemini-prompt');
+    const geminiSubmitButton = document.getElementById('gemini-submit');
+    const chatMessages = document.getElementById('chat-messages');
+    const geminiLoading = document.getElementById('gemini-loading');
+
+    // Toggle Gemini container visibility
+    toggleGeminiButton.addEventListener('click', () => {
+        if (geminiContainer.style.display === 'none') {
+            geminiContainer.style.display = 'block';
+            toggleGeminiButton.textContent = 'Hide MeetMate';
+        } else {
+            geminiContainer.style.display = 'none';
+            toggleGeminiButton.textContent = 'Ask MeetMate';
+        }
+    });
+
+    // Handle Gemini submit with chat interface
+    geminiSubmitButton.addEventListener('click', () => {
+        sendUserMessage();
+    });
+
+    // Allow pressing Enter to send message (Shift+Enter for new line)
+    geminiPromptInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendUserMessage();
+        }
+    });
+
+    async function sendUserMessage() {
+        const prompt = geminiPromptInput.value.trim();
+        
+        if (!prompt) {
+            return;
+        }
+        
+        // Add user message to chat
+        addChatMessage(prompt, 'user');
+        
+        // Clear input
+        geminiPromptInput.value = '';
+        
+        // Show loading indicator
+        geminiLoading.style.display = 'block';
+        
+        try {
+            // Make API call to Gemini
+            const response = await fetchGeminiResponse(prompt);
+            geminiLoading.style.display = 'none';
+            
+            if (response) {
+                // Add assistant response to chat
+                addChatMessage(response, 'assistant');
+            } else {
+                addChatMessage("I'm sorry, I couldn't process your request. Please try again.", 'assistant');
+            }
+        } catch (error) {
+            console.error('Error with Gemini:', error);
+            geminiLoading.style.display = 'none';
+            addChatMessage("Sorry, an error occurred. Please try again later.", 'assistant');
+        }
+    }
+
+    // Function to add a message to the chat window
+    function addChatMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}`;
+        
+        const avatar = document.createElement(sender === 'user' ? 'div' : 'img');
+        
+        if (sender === 'user') {
+            avatar.className = 'avatar';
+        } else {
+            avatar.className = 'avatar';
+            avatar.src = 'icon128.png';
+            avatar.alt = 'MM';
+            avatar.style.padding = '0'; // Remove padding for the image
+            avatar.style.width = '28px';
+            avatar.style.height = '28px';
+        }
+        
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.textContent = text;
+        
+        messageDiv.appendChild(avatar);
+        messageDiv.appendChild(bubble);
+        chatMessages.appendChild(messageDiv);
+        
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Function to fetch response from Gemini API
+    async function fetchGeminiResponse(prompt) {
+        // For demo purposes - replace with actual Gemini API integration
+        // This is where you would make an API call to Google's Gemini API
+        
+        // Example implementation (replace with actual API call):
+        // const apiKey = 'YOUR_GEMINI_API_KEY';
+        // const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Bearer ${apiKey}`
+        //     },
+        //     body: JSON.stringify({
+        //         contents: [{
+        //             parts: [{
+        //                 text: prompt
+        //             }]
+        //         }]
+        //     })
+        // });
+        // const data = await response.json();
+        // return data.candidates[0].content.parts[0].text;
+        
+        // Placeholder response for demonstration
+        return new Promise(resolve => {
+            setTimeout(() => {
+                if (prompt.toLowerCase().includes('schedule') || prompt.toLowerCase().includes('meeting')) {
+                    resolve("Based on your calendar, I recommend scheduling your meeting on Wednesday at 2:00 PM as that appears to be an open slot in your schedule. Would you like me to create this event for you?");
+                } else if (prompt.toLowerCase().includes('free time')) {
+                    resolve("Looking at your calendar for this week, you have the most free time on Thursday afternoon between 1:00 PM and 4:00 PM.");
+                } else if (prompt.toLowerCase().includes('hello') || prompt.toLowerCase().includes('hi')) {
+                    resolve("Hello! How can I help you with your scheduling needs today?");
+                } else {
+                    resolve("I'm MeetMate, your personal AI Assistant! I can help with scheduling and calendar management. Try asking me about finding free time in your schedule or when to schedule an important meeting.");
+                }
+            }, 1000);
+        });
+    }
 });

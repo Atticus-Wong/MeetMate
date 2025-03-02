@@ -1,4 +1,4 @@
-async function authenticate() {
+window.authenticate = async function() {
   console.log('Starting authentication process...');
   
   return new Promise((resolve, reject) => {
@@ -12,20 +12,25 @@ async function authenticate() {
       resolve(token);
     });
   });
-}
+};
 
-async function getCalendarEvents() {
+window.getCalendarEvents = async function() {
   try {
-    const token = await authenticate();
+    const token = await window.authenticate();
     const response = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const data = await response.json();
     return data;
   } catch (error) {
     console.error('Authentication error:', error);
     return null;
   }
-}
+};

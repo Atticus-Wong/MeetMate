@@ -94,10 +94,149 @@
         text-align: center;
         margin-top: 15px;
       }
+
+      /* Gemini container styles */
+      #gemini-container {
+        margin-top: 20px;
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #dadce0;
+      }
+
+      #gemini-container h2 {
+        font-size: 16px;
+        color: #4285f4;
+        margin-top: 0;
+        margin-bottom: 12px;
+      }
+
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: vertical;
+      }
+
+      #gemini-submit {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .response-box {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: #ffffff;
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      #gemini-loading {
+        text-align: center;
+        margin: 10px 0;
+        font-style: italic;
+      }
+
+      /* Chat interface styles */
+      .chat-window {
+        display: flex;
+        flex-direction: column;
+        height: 250px;
+        overflow-y: auto;
+        background-color: white;
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .message {
+        display: flex;
+        margin-bottom: 10px;
+        max-width: 85%;
+      }
+
+      .message.user {
+        align-self: flex-end;
+        flex-direction: row-reverse;
+      }
+
+      .message.assistant {
+        align-self: flex-start;
+      }
+
+      .avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background-color: #4285f4;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        margin: 0 8px;
+      }
+
+      .message.user .avatar {
+        background-color: #34a853;
+      }
+
+      .bubble {
+        background-color: #f1f3f4;
+        border-radius: 18px;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .message.user .bubble {
+        background-color: #d2e3fc;
+      }
+
+      .chat-input-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      #gemini-prompt {
+        flex-grow: 1;
+        border-radius: 20px;
+        padding: 8px 15px;
+        margin-right: 8px;
+        border: 1px solid #dadce0;
+        resize: none;
+        font-family: inherit;
+        font-size: 14px;
+      }
+
+      #gemini-submit {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+      }
+
+      #gemini-submit svg {
+        width: 18px;
+        height: 18px;
+      }
     </style>
   </head>
   <body>
-    <h1>Meet Mate</h1>
+    <h1>MeetMate</h1>
+    <p>Your personal meeting scheduler</p>
     <div id="auth-status">Not signed in</div>
     <button id="auth-button">Sign in with Google</button>
     <button id="view-calendar" disabled>View Upcoming Events</button>
@@ -137,6 +276,46 @@
       </div>
       <button id="schedule-button">Find Time & Schedule</button>
       <div id="schedule-status"></div>
+    </div>
+
+    <div class="toggle-container">
+      <button id="toggle-gemini">Ask MeetMate</button>
+    </div>
+
+    <div id="gemini-container" style="display: none">
+      <h2>Chat with MeetMate</h2>
+      <div id="chat-messages" class="chat-window">
+        <div class="message assistant">
+          <img class="avatar" src="icon128.png" alt="MM" />
+          <div class="bubble">
+            Hi! I'm MeetMate, your personal scheduling assistant. How can I help
+            you today?
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <textarea
+          id="gemini-prompt"
+          rows="2"
+          placeholder="Schedule a meeting..."
+        ></textarea>
+        <button id="gemini-submit">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div id="gemini-loading" style="display: none">
+        MeetMate is thinking...
+      </div>
     </div>
   </body>
 </html>
